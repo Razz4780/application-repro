@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: py-serv-2
+  namespace: default
   labels:
     app: py-serv-2
 spec:
@@ -32,6 +33,7 @@ metadata:
   labels:
     app: py-serv-2
   name: py-serv-2
+  namespace: default
 spec:
   ports:
     - port: 80
