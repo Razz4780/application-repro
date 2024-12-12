@@ -14,3 +14,8 @@ spec:
   - path: py-serv-1
     repoURL: https://github.com/Razz4780/application-repro
     targetRevision: HEAD
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+      allowEmpty: true
