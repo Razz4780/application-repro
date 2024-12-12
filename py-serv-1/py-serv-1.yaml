@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: py-serv-1
+  labels:
+    app: py-serv-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: py-serv-1
+  template:
+    metadata:
+      labels:
+        app: py-serv-1
+    spec:
+      containers:
+        - name: py-serv-1
+          image: ghcr.io/metalbear-co/mirrord-pytest:latest
+          ports:
+            - containerPort: 80
+          env:
+            - name: MIRRORD_FAKE_VAR_FIRST
+              value: mirrord.is.running
+            - name: MIRRORD_FAKE_VAR_SECOND
+              value: "7777"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: py-serv-1
+  name: py-serv-1
+spec:
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 80
+      nodePort: 30001
+  selector:
+    app: py-serv-1
+  sessionAffinity: None
+  type: NodePort
